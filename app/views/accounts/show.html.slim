@@ -1,0 +1,21 @@
+p#notice = notice
+
+p
+  strong First name:
+  = @account.first_name
+p
+  strong Last name:
+  = @account.last_name
+p
+  strong Age:
+  = @account.age
+p
+  strong Favourite week day:
+  = @account.favourite_week_day
+p
+  strong Comment:
+  = @account.comment
+
+= link_to 'Edit', edit_account_path(@account)
+'  |
+= link_to 'Back', accounts_path
