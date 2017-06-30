@@ -31,10 +31,10 @@ RSpec.feature 'Accounts', type: :feature do
     end
 
     def fill_form_with(person)
-      fill_in('First name', with: person[:first_name])
-      fill_in('Last name', with: person[:last_name])
-      fill_in('Age', with: person[:age])
-      fill_in('Favourite week day', with: person[:favourite_week_day])
+      %i[first_name last_name age favourite_week_day].each do |field|
+        value = person[field]
+        fill_in(field.to_s.humanize, with: value) if value
+      end
     end
 
     context 'when inserting valid data' do
