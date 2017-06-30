@@ -47,12 +47,21 @@ RSpec.feature 'Accounts', type: :feature do
       end
     end
 
-    context 'when inserting no first name' do
+    context 'with no first name' do
       let :account_data { valid_account_data.merge(first_name: '') }
 
       it 'fails with an error message' do
         expect(page).not_to have_content('Account was successfully created.')
         expect(page).to have_content('The first name cannot be empty')
+      end
+    end
+
+    context 'with a long first name' do
+      let :account_data { valid_account_data.merge(first_name: 'Some Very Very Long Name That Should Make Validation Fail Because It Has Too Many Characters In It') }
+
+      it 'fails with an error message' do
+        expect(page).not_to have_content('Account was successfully created.')
+        expect(page).to have_content('The first name can be at most 30 characters long')
       end
     end
 
@@ -62,6 +71,60 @@ RSpec.feature 'Accounts', type: :feature do
       it 'fails with an error message' do
         expect(page).not_to have_content('Account was successfully created.')
         expect(page).to have_content('The last name cannot be empty')
+      end
+    end
+
+    context 'with a short last name' do
+      let :account_data { valid_account_data.merge(last_name: 'a') }
+
+      it 'fails with an error message' do
+        expect(page).not_to have_content('Account was successfully created.')
+        expect(page).to have_content('The last name must be at least 2 characters long')
+      end
+    end
+
+    context 'with a negative age' do
+      let :account_data { valid_account_data.merge(age: -2) }
+
+      it 'fails with an error message' do
+        expect(page).not_to have_content('Account was successfully created.')
+        expect(page).to have_content('The age must be between 5 and 120')
+      end
+    end
+
+    context 'with a small age' do
+      let :account_data { valid_account_data.merge(age: 3) }
+
+      it 'fails with an error message' do
+        expect(page).not_to have_content('Account was successfully created.')
+        expect(page).to have_content('The age must be between 5 and 120')
+      end
+    end
+
+    context 'with a large age' do
+      let :account_data { valid_account_data.merge(age: 121) }
+
+      it 'fails with an error message' do
+        expect(page).not_to have_content('Account was successfully created.')
+        expect(page).to have_content('The age must be between 5 and 120')
+      end
+    end
+
+    context 'with an invalid day of the week' do
+      let :account_data { valid_account_data.merge(favourite_week_day: 'Duodi') }
+
+      it 'fails with an error message' do
+        expect(page).not_to have_content('Account was successfully created.')
+        expect(page).to have_content('The favourite week day must be one of Monday, Tuesday, Wednesday, Thursday, Friday, Saturday or Sunday')
+      end
+    end
+
+    context 'with an forbidden word in the comment' do
+      let :account_data { valid_account_data.merge(comment: 'Some comment from the Knights who say Ni!') }
+
+      it 'fails with an error message' do
+        expect(page).not_to have_content('Account was successfully created.')
+        expect(page).to have_content('We want a shrubbery!')
       end
     end
   end
