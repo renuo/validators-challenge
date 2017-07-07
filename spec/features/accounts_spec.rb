@@ -32,7 +32,7 @@ RSpec.feature 'Accounts', type: :feature do
     end
 
     def fill_form_with(person)
-      %i[first_name last_name age favourite_week_day].each do |field|
+      %i[first_name last_name age favourite_week_day comment].each do |field|
         value = person[field]
         fill_in(field.to_s.humanize, with: value) if value
       end

@@ -18,4 +18,5 @@ class Account < ApplicationRecord
     in: weekdays,
     message: "The favourite week day must be one of #{weekdays.join(', ')}"
   }
+  validates :comment, format: { without: /\WNi!+/, message: 'We want a shrubbery!' }
 end
