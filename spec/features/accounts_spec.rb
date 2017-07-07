@@ -116,7 +116,7 @@ RSpec.feature 'Accounts', type: :feature do
 
       it 'fails with an error message' do
         expect(page).not_to have_content('Account was successfully created.')
-        expect(page).to have_content('The favourite week day must be one of Monday, Tuesday, Wednesday, Thursday, Friday, Saturday or Sunday')
+        expect(page).to have_content('The favourite week day must be one of Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday')
       end
     end
 
