@@ -21,6 +21,7 @@ RSpec.feature 'Accounts', type: :feature do
       fill_form_with account_data
       click_button 'Create Account'
     end
+
     let :valid_account_data do
       {
         first_name: 'Random',

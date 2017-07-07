@@ -1,0 +1,21 @@
+h1 Listing colours
+
+table
+  thead
+    tr
+      th Name
+      th
+      th
+      th
+
+  tbody
+    - @colours.each do |colour|
+      tr
+        td = colour.name
+        td = link_to 'Show', colour
+        td = link_to 'Edit', edit_colour_path(colour)
+        td = link_to 'Destroy', colour, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Colour', new_colour_path

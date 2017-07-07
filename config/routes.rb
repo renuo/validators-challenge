@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :colours
   resources :accounts
   get 'home/index'
 
